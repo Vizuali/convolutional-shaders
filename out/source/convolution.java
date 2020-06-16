@@ -15,7 +15,8 @@ import java.io.IOException;
 public class convolution extends PApplet {
 
 PImage label;
-PShape can;
+PShape convolutionCan;
+PShape originalCan;
 float angle;
 
 PShader selShader;
@@ -31,7 +32,8 @@ PShader identityShader;
 public void setup() {
   
   label = loadImage("lachoy.jpg");
-  can = createCan(100, 200, 32, label);
+  originalCan = createCan(100, 200, 32, label);
+  convolutionCan = createCan(100, 200, 32, label);
 
   edgeShader = loadShader("edgefrag.glsl");
   edge1Shader = loadShader("edge1frag.glsl");
@@ -47,10 +49,21 @@ public void setup() {
 public void draw() {    
   background(0);
   shader(selShader);
-  translate(width/2, height/2);
+  
+  pushMatrix();
+  translate(width / 4, height/2);
   rotateY(angle);  
-  shape(can);  
+  shape(originalCan);  
   angle += 0.01f;
+  popMatrix();
+
+  resetShader();
+  pushMatrix();
+  translate(3 * width / 4, height/2);
+  rotateY(angle);  
+  shape(convolutionCan);  
+  angle += 0.01f;
+  popMatrix();
 }
 
 public PShape createCan(float r, float h, int detail, PImage tex) {
