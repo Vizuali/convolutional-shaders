@@ -13,6 +13,11 @@ PShader boxBlurShader;
 PShader gsShader;
 PShader identityShader;
 
+PShader luma601Shader;
+PShader luma709Shader;
+PShader luma240Shader;
+PShader luma2020Shader;
+
 void setup() {
   size(640, 360, P3D);
   label = loadImage("lachoy.jpg");
@@ -24,8 +29,14 @@ void setup() {
   edge2Shader = loadShader("edge2frag.glsl");
   sharpShader = loadShader("sharpfrag.glsl");
   boxBlurShader = loadShader("boxblurfrag.glsl");
-  gsShader = loadShader("gsfrag.glsl");
   identityShader = loadShader("identityfrag.glsl");
+
+  gsShader = loadShader("gsfrag.glsl");
+  luma601Shader = loadShader("luma601frag.glsl");
+  luma709Shader = loadShader("luma709frag.glsl");
+  luma240Shader = loadShader("luma240frag.glsl");
+  luma2020Shader = loadShader("luma2020frag.glsl");
+
 
   selShader = identityShader;
 }
@@ -92,5 +103,17 @@ void keyPressed() {
   } else if (key == 'g') {
     println("Gray Scale Shader");
     selShader = gsShader;
+  } else if (key == 'h') {
+    println("Luma601 Shader");
+    selShader = luma601Shader;
+  } else if (key == 'j') {
+    println("Luma709 Shader");
+    selShader = luma709Shader;
+  } else if (key == 'k') {
+    println("Luma240 Shader");
+    selShader = luma240Shader;
+  } else if (key == 'l') {
+    println("Luma2020 Shader");
+    selShader = luma2020Shader;
   }
 }
